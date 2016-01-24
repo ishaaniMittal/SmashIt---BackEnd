@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * Created by Vijay on 24/01/2016.
@@ -28,6 +31,16 @@ public class CityService {
 
         }
         return "Successfully added "+city.getCityName()+" in the database.";
+    }
+
+    public City getCityById(int cityId)
+    {
+        return cityDao.findOne(cityId);
+    }
+
+    public List<City> getAllCities()
+    {
+        return (List<City>) cityDao.findAll();
     }
 
 }

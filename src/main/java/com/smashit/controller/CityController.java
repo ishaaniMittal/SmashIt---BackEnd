@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * Created by Vijay on 24/01/2016.
  */
@@ -26,4 +28,19 @@ public class CityController {
     public String addCity(String cityName) {
         return cityService.addCity(cityName);
     }
+
+    @RequestMapping("/findCity")
+    public @ResponseBody City getCityById(int cityId)
+    {
+        return cityService.getCityById(cityId);
+    }
+
+    @RequestMapping("/getCities")
+    public @ResponseBody
+    List<City> getAllCities()
+    {
+        return cityService.getAllCities();
+    }
+
+
 }
