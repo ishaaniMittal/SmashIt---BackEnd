@@ -20,8 +20,8 @@ public class SportController {
     private SportService sportService;
 
     @RequestMapping("/addSport")
-    @ResponseBody
-    public String addSport(String sportName)
+
+    public  @ResponseBody String addSport(String sportName)
     {
         return sportService.addSport(sportName);
     }
