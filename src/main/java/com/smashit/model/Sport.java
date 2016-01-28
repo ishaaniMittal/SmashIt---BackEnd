@@ -4,13 +4,14 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  * Created by Vijay on 24/01/2016.
  */
 @Entity
 @Table(name="sports")
-public class Sport {
+public class Sport implements Serializable{
     @Id
     @GeneratedValue(generator="increment")
     @GenericGenerator(name="increment", strategy = "increment")

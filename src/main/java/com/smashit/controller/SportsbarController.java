@@ -1,5 +1,7 @@
 package com.smashit.controller;
 
+import com.smashit.jsonPojo.JsonSportsbar;
+import com.smashit.model.Sport;
 import com.smashit.model.SportsBar;
 
 import com.smashit.service.SportsbarService;
@@ -17,9 +19,15 @@ public class SportsbarController {
     @Autowired
     private SportsbarService sportsbarService;
 
-    @RequestMapping("/findSportsBar")
-    public @ResponseBody SportsBar getSportsbarBySportsbarId(int sportsbarId)
+    @RequestMapping(value = "/findSportsBar", produces = "application/json")
+
+    public @ResponseBody
+    JsonSportsbar getSportsbarBySportsbarId(int sportsbarId)
     {
-        return sportsbarService.getSportsbarBySportsbarId(sportsbarId);
+
+        JsonSportsbar sportsBar= sportsbarService.getSportsbarBySportsbarId(sportsbarId);
+        System.out.println("CONTROLLER :"+sportsBar);
+
+        return sportsBar;
     }
 }
