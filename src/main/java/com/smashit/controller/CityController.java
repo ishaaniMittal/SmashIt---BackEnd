@@ -13,6 +13,7 @@ import java.util.List;
  * Created by Vijay on 24/01/2016.
  */
 
+@RequestMapping("/city")
 @Controller
 public class CityController {
 
