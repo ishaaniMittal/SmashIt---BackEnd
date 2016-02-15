@@ -26,7 +26,7 @@ public class SportsbarTranslator {
         jsonSportsbar.setSportsbarPicUrl(sportsbar.getSportsbarPicUrl());
         jsonSportsbar.setSportsbarPincode(sportsbar.getSportsbarPincode());
         jsonSportsbar.setSportsbarName(sportsbar.getSportsbarName());
-
+        jsonSportsbar.setSportsbarPintBeer(sportsbar.getSportsbarPintBeer());
         return jsonSportsbar;
     }
 

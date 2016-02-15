@@ -13,6 +13,7 @@ import java.io.Serializable;
 @Entity
 @Table(name="sportsbar")
 public class SportsBar implements Serializable {
+
     @Override
     public String toString() {
         return "SportsBar{" +
@@ -62,6 +63,10 @@ public class SportsBar implements Serializable {
     @NotNull
     private String sportsbarPhoneNo;
 
+    @Column(name = "sbar_pint_beer")
+    @NotNull
+    private int sportsbarPintBeer;
+
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "sbar_city_id")
@@ -75,7 +80,8 @@ public class SportsBar implements Serializable {
     }
 
     public SportsBar(){}
-    public SportsBar(String sportsbarName, String sportsbarPicUrl, double costFor2, String sportsbarArea, int sportsbarPincode, String sportsbarLandmark, String sportsbarPhoneNo, City sportsbarCity) {
+
+    public SportsBar(String sportsbarName, String sportsbarPicUrl, double costFor2, String sportsbarArea, int sportsbarPincode, String sportsbarLandmark, String sportsbarPhoneNo, int sportsbarPintBeer, City sportsbarCity) {
         this.sportsbarName = sportsbarName;
         this.sportsbarPicUrl = sportsbarPicUrl;
         this.costFor2 = costFor2;
@@ -83,9 +89,17 @@ public class SportsBar implements Serializable {
         this.sportsbarPincode = sportsbarPincode;
         this.sportsbarLandmark = sportsbarLandmark;
         this.sportsbarPhoneNo = sportsbarPhoneNo;
+        this.sportsbarPintBeer = sportsbarPintBeer;
         this.sportsbarCity = sportsbarCity;
     }
 
+    public int getSportsbarPintBeer() {
+        return sportsbarPintBeer;
+    }
+
+    public void setSportsbarPintBeer(int sportsbarPintBeer) {
+        this.sportsbarPintBeer = sportsbarPintBeer;
+    }
 
     public int getId() {
         return id;

@@ -1,5 +1,6 @@
 package com.smashit.controller;
 
+import com.smashit.dao.SportsbarDao;
 import com.smashit.jsonPojo.JsonSportsbar;
 import com.smashit.model.Sport;
 import com.smashit.model.SportsBar;
@@ -14,7 +15,9 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -31,37 +34,22 @@ import java.util.List;
 public class SportsbarController {
 
 
-    @PersistenceContext
-    EntityManager entityManager;
-
-    public Session openSession() {
-        return entityManager.unwrap(Session.class);
-    }
-
-
     @Autowired
     private SportsbarService sportsbarService;
 
-    @RequestMapping(value = "/findSportsBar", produces = "application/json")
+
+    @RequestMapping(value = "/findSportsBar/{sbar_id}", produces = "application/json")
     public @ResponseBody
-    JsonSportsbar getSportsbarBySportsbarId(int sportsbarId)
+    JsonSportsbar getSportsbarBySportsbarId(@PathVariable("sbar_id")int sportsbarId)
     {
-
-        JsonSportsbar sportsBar= sportsbarService.getSportsbarBySportsbarId(sportsbarId);
-        System.out.println("CONTROLLER :" + sportsBar);
-
-        return sportsBar;
+        return sportsbarService.getSportsbarBySportsbarId(sportsbarId);
     }
 
-    @RequestMapping(value = "/findSportsbarByCityId",produces = "application/json")
+    @RequestMapping(value = "/findSportsbarByCityId/{city_id}",produces = "application/json")
     public @ResponseBody
-    List<JsonSportsbar> getJsonSportsbarByCityId(int cityId)
+    List<JsonSportsbar> getJsonSportsbarByCityId(@PathVariable("city_id")int cityId)
     {
-        Session session=openSession();
-        Criteria criteria=session.createCriteria(SportsBar.class);
-        Criteria auxCriteria=criteria.createCriteria("sportsbarCity");
-        auxCriteria.add(Restrictions.eq("id", cityId));
-        return SportsbarTranslator.getJsonSportsbarsByCityId(criteria.list());
+        return sportsbarService.getJsonSportsbarByCityId(cityId);
     }
 
 }

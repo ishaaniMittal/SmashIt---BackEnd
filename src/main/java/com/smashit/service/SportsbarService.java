@@ -15,6 +15,9 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.persistence.Query;
 import javax.xml.bind.SchemaOutputResolver;
@@ -26,22 +29,26 @@ import java.util.List;
 @Service
 public class SportsbarService {
 
-
     @Autowired
-    private SportsbarDao sportsbarDao;
+    private SportsbarDao sportsbarDaoImpl;
 
-
-    public JsonSportsbar getSportsbarBySportsbarId(int sportsbarId)
-    {
-        //return sportsbarDao.findOne(sportsbarId);
-        SportsBar sportsBar= sportsbarDao.getSportsbarById(sportsbarId);
-
-        //System.out.println(sportsBar);
-        return SportsbarTranslator.getJsonSportsbarByCity(sportsBar,sportsBar.getSportsbarCity());
+    public JsonSportsbar getSportsbarBySportsbarId(int sportsbarId) {
+        SportsBar sbar = sportsbarDaoImpl.getSportsbarById(sportsbarId);
+        JsonSportsbar sportsBar = SportsbarTranslator.getJsonSportsbarByCity(sbar, sbar.getSportsbarCity());
+        return sportsBar;
     }
 
-
-
-
+    public List<JsonSportsbar> getJsonSportsbarByCityId(int cityId)
+    {
+        List<SportsBar> sportsBars=sportsbarDaoImpl.getJsonSportsbarByCityId(cityId);
+        List<JsonSportsbar> jsonSportsbars=SportsbarTranslator.getJsonSportsbarsByCityId(sportsBars);
+        return  jsonSportsbars;
+    }
 
 }
+
+
+
+
+
+

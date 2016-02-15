@@ -15,10 +15,11 @@ public class JsonSportsbar {
     private String sportsbarPhoneNo;
     private int cityId;
     private String cityName;
+    private int sportsbarPintBeer;
 
     public JsonSportsbar(){}
 
-    public JsonSportsbar(int id, String sportsbarName, String sportsbarPicUrl, double costFor2, String sportsbarArea, int sportsbarPincode, String sportsbarLandmark, String sportsbarPhoneNo, int cityId, String cityName) {
+    public JsonSportsbar(int id, String sportsbarName, String sportsbarPicUrl, double costFor2, String sportsbarArea, int sportsbarPincode, String sportsbarLandmark, String sportsbarPhoneNo, int cityId, String cityName, int sportsbarPintBeer) {
         this.id = id;
         this.sportsbarName = sportsbarName;
         this.sportsbarPicUrl = sportsbarPicUrl;
@@ -29,6 +30,15 @@ public class JsonSportsbar {
         this.sportsbarPhoneNo = sportsbarPhoneNo;
         this.cityId = cityId;
         this.cityName = cityName;
+        this.sportsbarPintBeer = sportsbarPintBeer;
+    }
+
+    public int getSportsbarPintBeer() {
+        return sportsbarPintBeer;
+    }
+
+    public void setSportsbarPintBeer(int sportsbarPintBeer) {
+        this.sportsbarPintBeer = sportsbarPintBeer;
     }
 
     public int getId() {
