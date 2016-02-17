@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -21,11 +22,11 @@ public class ESSController {
     @Autowired
     private EventSportsbarSportMappingService eventSportsbarSportMappingService;
 
-    @RequestMapping("/getEventSportBySportsbarId/{sbar_id}")
+    @RequestMapping("/getEventSportBySportsbarId/{sbar_id}/{curr_date}")
     public @ResponseBody
-    List<Sport> getEventSportBySportsbarId(@PathVariable("sbar_id")int sportsbarId)
+    List<Sport> getEventSportBySportsbarId(@PathVariable("sbar_id")int sportsbarId,@PathVariable("curr_date") Date currentDate)
     {
-        return eventSportsbarSportMappingService.getEventSportBySportsbarId(sportsbarId);
+        return eventSportsbarSportMappingService.getEventSportBySportsbarId(sportsbarId, currentDate);
     }
 
     @RequestMapping("/getESSMappingById/{id}")

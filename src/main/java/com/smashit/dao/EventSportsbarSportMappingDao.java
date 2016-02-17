@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import javax.transaction.Transactional;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -14,6 +15,6 @@ import java.util.List;
 @Transactional
 public interface EventSportsbarSportMappingDao extends CrudRepository<EventSportsbarSportMapping,Integer>{
 
-    @Query("select ess.sport from EventSportsbarSportMapping ess where ess.sportsBar.id = ?1")
-    public List<Sport> getEventSportBySportsbarId(int sportsbarId);
+    @Query("select ess.sport from EventSportsbarSportMapping ess where ess.sportsBar.id = ?1 and ess.eventDate =?2")
+    public List<Sport> getEventSportBySportsbarId(int sportsbarId,Date currentDate);
 }

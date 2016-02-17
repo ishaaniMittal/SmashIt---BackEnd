@@ -6,6 +6,7 @@ import com.smashit.model.Sport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -17,9 +18,9 @@ public class EventSportsbarSportMappingService {
     @Autowired
     private EventSportsbarSportMappingDao eventSportsbarSportMappingDao;
 
-    public List<Sport> getEventSportBySportsbarId(int sportsbarId)
+    public List<Sport> getEventSportBySportsbarId(int sportsbarId, Date currentDate)
     {
-        return eventSportsbarSportMappingDao.getEventSportBySportsbarId(sportsbarId);
+        return eventSportsbarSportMappingDao.getEventSportBySportsbarId(sportsbarId, currentDate);
     }
 
     public EventSportsbarSportMapping getESSMappingById(int id)
