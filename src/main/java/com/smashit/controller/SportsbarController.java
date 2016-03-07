@@ -5,6 +5,8 @@ import com.smashit.jsonPojo.JsonSportsbar;
 import com.smashit.model.Sport;
 import com.smashit.model.SportsBar;
 
+import com.smashit.service.EventSportsbarSportMappingService;
+import com.smashit.service.JsonSportsbarService;
 import com.smashit.service.SportsbarService;
 import com.smashit.translator.SportsbarTranslator;
 import org.hibernate.Criteria;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -37,6 +40,8 @@ public class SportsbarController {
     @Autowired
     private SportsbarService sportsbarService;
 
+    @Autowired
+    private JsonSportsbarService jsonSportsbarService;
 
     @RequestMapping(value = "/findSportsBar/{sbar_id}", produces = "application/json")
     public @ResponseBody
@@ -45,11 +50,30 @@ public class SportsbarController {
         return sportsbarService.getSportsbarBySportsbarId(sportsbarId);
     }
 
-    @RequestMapping(value = "/findSportsbarByCityId/{city_id}",produces = "application/json")
+    @RequestMapping(value = "/findSportsbarByCityId/{city_id}/{curr_date}",produces = "application/json")
     public @ResponseBody
-    List<JsonSportsbar> getJsonSportsbarByCityId(@PathVariable("city_id")int cityId)
+    List<JsonSportsbar> getJsonSportsbarByCityId(@PathVariable("city_id")int cityId,@PathVariable("curr_date")Date currentDate)
     {
-        return sportsbarService.getJsonSportsbarByCityId(cityId);
+        return jsonSportsbarService.getJsonSportsbarByCityId(cityId, currentDate);
+    }
+
+    @RequestMapping("/getSportsbarName/{sbar_name}")
+    public @ResponseBody String getSportsbarName(@PathVariable("sbar_name") int sportsbarId)
+    {
+        return sportsbarService.getSportsbarName(sportsbarId);
+    }
+
+
+    @RequestMapping(value = "/getSportsbarImageUrls/{sbar_id}")
+    public @ResponseBody List<String> getSportsbarImageUrls(@PathVariable("sbar_id")int sportsbarId)
+    {
+        return sportsbarService.getSportsbarImageUrls(sportsbarId);
+    }
+
+    @RequestMapping(value = "/getSportsbarMenuUrls/{sbar_id}")
+    public @ResponseBody List<String> getSportsbarMenuUrls(@PathVariable("sbar_id")int sportsbarId)
+    {
+        return sportsbarService.getSportsbarMenuUrl(sportsbarId);
     }
 
 }

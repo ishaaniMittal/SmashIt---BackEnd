@@ -1,5 +1,6 @@
 package com.smashit.controller;
 
+import com.smashit.jsonPojo.JsonEvent;
 import com.smashit.model.Event;
 import com.smashit.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * Created by Vijay on 15/02/2016.
@@ -26,4 +29,7 @@ public class EventController {
     {
         return eventService.getEventById(eventId);
     }
+
+
+
 }

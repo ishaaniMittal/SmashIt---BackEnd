@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by Vijay on 24/01/2016.
@@ -74,6 +75,25 @@ public class SportsBar implements Serializable {
     private City sportsbarCity;
 
 
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinColumn(name = "sbar_id")
+    @NotNull
+    private List<SportsbarImages> sportsbarImages;
+
+
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinColumn(name = "sbar_id")
+    @NotNull
+    private List<Menu> menus;
+
+
+    public List<Menu> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(List<Menu> menus) {
+        this.menus = menus;
+    }
 
     public City getSportsbarCity() {
         return sportsbarCity;
@@ -81,17 +101,6 @@ public class SportsBar implements Serializable {
 
     public SportsBar(){}
 
-    public SportsBar(String sportsbarName, String sportsbarPicUrl, double costFor2, String sportsbarArea, int sportsbarPincode, String sportsbarLandmark, String sportsbarPhoneNo, int sportsbarPintBeer, City sportsbarCity) {
-        this.sportsbarName = sportsbarName;
-        this.sportsbarPicUrl = sportsbarPicUrl;
-        this.costFor2 = costFor2;
-        this.sportsbarArea = sportsbarArea;
-        this.sportsbarPincode = sportsbarPincode;
-        this.sportsbarLandmark = sportsbarLandmark;
-        this.sportsbarPhoneNo = sportsbarPhoneNo;
-        this.sportsbarPintBeer = sportsbarPintBeer;
-        this.sportsbarCity = sportsbarCity;
-    }
 
     public int getSportsbarPintBeer() {
         return sportsbarPintBeer;
@@ -167,5 +176,13 @@ public class SportsBar implements Serializable {
 
     public void setSportsbarCity(City sportsbarCity) {
         this.sportsbarCity = sportsbarCity;
+    }
+
+    public List<SportsbarImages> getSportsbarImages() {
+        return sportsbarImages;
+    }
+
+    public void setSportsbarImages(List<SportsbarImages> sportsbarImages) {
+        this.sportsbarImages = sportsbarImages;
     }
 }

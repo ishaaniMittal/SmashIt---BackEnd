@@ -1,11 +1,12 @@
 package com.smashit.service;
 
 import com.smashit.dao.CityDao;
+import com.smashit.dao.EventSportsbarSportMappingDao;
 import com.smashit.dao.SportsbarDao;
 import com.smashit.jsonPojo.JsonSportsbar;
-import com.smashit.model.City;
-import com.smashit.model.SportsBar;
+import com.smashit.model.*;
 import com.smashit.translator.SportsbarTranslator;
+import com.smashit.util.ImageUrlFactory;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.persistence.Query;
 import javax.xml.bind.SchemaOutputResolver;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,20 +33,64 @@ import java.util.List;
 public class SportsbarService {
 
     @Autowired
-    private SportsbarDao sportsbarDaoImpl;
+    private SportsbarDao sportsbarDao;
+
 
     public JsonSportsbar getSportsbarBySportsbarId(int sportsbarId) {
-        SportsBar sbar = sportsbarDaoImpl.getSportsbarById(sportsbarId);
+        SportsBar sbar = sportsbarDao.getSportsbarById(sportsbarId);
         JsonSportsbar sportsBar = SportsbarTranslator.getJsonSportsbarByCity(sbar, sbar.getSportsbarCity());
         return sportsBar;
     }
-
-    public List<JsonSportsbar> getJsonSportsbarByCityId(int cityId)
+/*
+    public List<JsonSportsbar> getJsonSportsbarsByCityId(int cityId)
     {
-        List<SportsBar> sportsBars=sportsbarDaoImpl.getJsonSportsbarByCityId(cityId);
+        List<SportsBar> sportsBars=sportsbarDao.getSportsbarsByCityId(cityId);
         List<JsonSportsbar> jsonSportsbars=SportsbarTranslator.getJsonSportsbarsByCityId(sportsBars);
         return  jsonSportsbars;
+    }*/
+
+    public List<SportsBar> getSportsbarsByCityId(int cityId)
+    {
+        return sportsbarDao.getSportsbarsByCityId(cityId);
     }
+
+
+    public List<String> getSportsbarImageUrls(int sportsbarId)
+    {
+        List<SportsbarImages> sportsbarImages=sportsbarDao.getSportsbarImageUrls(sportsbarId);
+        List<String> sportsbarImageUrls=new ArrayList<>();
+        for(SportsbarImages imgs: sportsbarImages)
+        {
+            int imgNo=imgs.getTotalImages();
+            for(int i=1;i<=imgNo;i++)
+            {
+                sportsbarImageUrls.add(ImageUrlFactory.getSportsbarImageUrl(getSportsbarName(sportsbarId),"HIGH",i));
+            }
+        }
+        return sportsbarImageUrls;
+    }
+
+    public List<String> getSportsbarMenuUrl(int sportsbarId)
+    {
+        List<Menu> menus=sportsbarDao.getSportsbarMenu(sportsbarId);
+        List<String> sportsbarMenuUrls=new ArrayList<>();
+        for(Menu menu:menus)
+        {
+            int imgNo=menu.getTotalPages();
+            for(int i=1;i<=imgNo;i++)
+            {
+                sportsbarMenuUrls.add(ImageUrlFactory.getSportsbarMenuUrl(getSportsbarName(sportsbarId),"HIGH",i));
+            }
+        }
+        return sportsbarMenuUrls;
+    }
+
+
+    public String getSportsbarName(int sportsbarId)
+    {
+        return sportsbarDao.getSportsbarName(sportsbarId);
+    }
+
 
 }
 

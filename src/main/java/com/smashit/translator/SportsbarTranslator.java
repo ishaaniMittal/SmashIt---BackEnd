@@ -1,7 +1,10 @@
 package com.smashit.translator;
 
+import com.smashit.jsonPojo.JsonOffer;
 import com.smashit.jsonPojo.JsonSportsbar;
+import com.smashit.jsonPojo.JsonSportsbarDetails;
 import com.smashit.model.City;
+import com.smashit.model.Offer;
 import com.smashit.model.SportsBar;
 
 import java.util.ArrayList;
@@ -22,9 +25,6 @@ public class SportsbarTranslator {
         jsonSportsbar.setId(sportsbar.getId());
         jsonSportsbar.setSportsbarArea(sportsbar.getSportsbarArea());
         jsonSportsbar.setSportsbarLandmark(sportsbar.getSportsbarLandmark());
-        jsonSportsbar.setSportsbarPhoneNo(sportsbar.getSportsbarPhoneNo());
-        jsonSportsbar.setSportsbarPicUrl(sportsbar.getSportsbarPicUrl());
-        jsonSportsbar.setSportsbarPincode(sportsbar.getSportsbarPincode());
         jsonSportsbar.setSportsbarName(sportsbar.getSportsbarName());
         jsonSportsbar.setSportsbarPintBeer(sportsbar.getSportsbarPintBeer());
         return jsonSportsbar;
@@ -38,5 +38,15 @@ public class SportsbarTranslator {
             jsonSportsbars.add(getJsonSportsbarByCity(sportsBar,sportsBar.getSportsbarCity()));
         }
         return jsonSportsbars;
+    }
+
+
+    public static JsonSportsbarDetails getJsonSportsbarDetails(SportsBar sportsBar,List<JsonOffer> offers)
+    {
+        JsonSportsbarDetails jsonSportsbarDetails=new JsonSportsbarDetails();
+        jsonSportsbarDetails.setSportsbarPhoneNo(sportsBar.getSportsbarPhoneNo());
+        jsonSportsbarDetails.setSportsbarPincode(sportsBar.getSportsbarPincode());
+        jsonSportsbarDetails.setOffers(offers);
+        return jsonSportsbarDetails;
     }
 }
